@@ -1,0 +1,747 @@
+\documentclass[dvipdfmx,17pt]{beamer}
+
+\usepackage{pxjahyper}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[all]{xy}
+
+
+%\renewcommand{\subset}{\subseteq}
+\renewcommand{\emptyset}{\varnothing}
+
+\usefonttheme{professionalfonts}
+\mathversion{bold}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+
+%\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{footline}[frame number] 
+
+
+\theoremstyle{plain}
+\newtheorem{thm}{定理}
+\newtheorem{defi}{定義}
+\newtheorem{lem}{補題}
+\newtheorem{prop}{命題}
+\newtheorem{cor}{系}
+\renewcommand{\proofname}{証明}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+
+\DeclareMathOperator{\Type}{type}
+
+\title{三角級数の一意性}
+\author{fujidig}
+\date{October 29, 2017}
+
+\begin{document}
+
+\begin{frame}\frametitle{}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{メニュー}
+\begin{itemize}
+
+\item Cantorが証明した三角級数の一意性定理の紹介
+
+\begin{itemize}
+\item 定理1: 三角級数が全ての点で$0$ $\Rightarrow$係数は$0$
+\item 定理2: 三角級数が有限個の点を除いた全ての点で$0$ $\Rightarrow$係数は$0$
+\item 定理3: 三角級数がある可算閉集合の点を除いた全ての点で$0$ $\Rightarrow$係数は$0$
+\begin{itemize}
+	\item 定理3を証明するために順序数とCantor-Bendixson解析を紹介する
+\end{itemize}
+\end{itemize}
+
+\item Cantor以後の発展
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{三角級数}
+\[S \sim \frac{a_0}{2} + \sum_{n=1}^\infty (a_n \cos nx + b_n \sin nx) \]
+の形の無限級数を三角級数という
+\end{frame}
+
+\begin{frame}{三角級数の書き換え}
+\[S \sim \frac{a_0}{2} + \sum_{n=1}^\infty (a_n \cos nx + b_n \sin nx) \]
+は
+\[S \sim \sum_{n=-\infty}^\infty c_n e^{inx} \]
+と書き換えられる
+\end{frame}
+
+
+
+\begin{frame}{事実}
+$f$が$2\pi$周期の区分的に滑らかな関数なら
+\[f(x) = \sum_{-\infty}^{\infty} \hat{f}(n)e^{inx}. \]
+と三角級数に展開できる
+
+ここで
+\[\hat{f}(n) = \frac{1}{2\pi} \int_0^{2\pi} f(t) e^{-int} dt \]
+	
+{\small
+\begin{itemize}
+\item 今後とくに断らないときは収束は各点収束とする
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Fourier級数}
+このように$f$に対して係数$\hat{f}(n)$を定めたときの三角級数
+\[\sum_{-\infty}^{\infty} \hat{f}(n)e^{inx} \]
+を$f$のFourier級数という
+\end{frame}
+
+\begin{frame}{注}
+
+\begin{align*}
+\left(\begin{matrix}
+\text{Fourier級数展開} \\
+\text{可能な関数全体}
+\end{matrix}\right)
+\subsetneq
+\left(\begin{matrix}
+\text{三角級数展開} \\
+\text{可能な関数全体}
+\end{matrix}\right)
+\end{align*}
+
+\vspace{1cm}
+ex. $\sum_{n=2}^\infty \frac{\sin nx}{\log n}$
+\end{frame}
+
+\begin{frame}{問題 (1869, Heine)}
+$f$が三角級数展開可能ならその展開は一意か？
+
+i.e.
+\begin{align*}
+& f(x) = \sum c_n e^{inx} = \sum d_n e^{inx} (\forall x \in \R) \\
+& \Rightarrow c_n = d_n (\forall n \in \Z) \text{か？}
+\end{align*}
+\end{frame}
+
+\begin{frame}{言い換え}
+\begin{align*}
+& \sum c_n e^{inx} = 0 (\forall x \in \R) \\
+& \Rightarrow c_n = 0 (\forall n \in \Z) \text{か？}
+\end{align*}
+$\because$ 移項
+\end{frame}
+
+\begin{frame}{言い換え}
+答え: Yes (Cantor, 1870)
+\begin{thm}[1]
+\begin{align*}
+& \sum c_n e^{inx} = 0 (\forall x \in \R) \\
+& \Rightarrow c_n = 0 (\forall n \in \Z)
+\end{align*}
+\end{thm}
+\end{frame}
+
+\begin{frame}{注}
+各点収束以外仮定していないので，これは決して自明なことではない．
+なお，次のどちらかを仮定すれば自明
+\begin{itemize}
+	\item $L^2$関数$f$のFourier級数である
+	\item $\sum c_n e^{inx}$が一様収束する
+\end{itemize}
+\end{frame}
+
+\begin{frame}{定理1の証明に必要な道具}
+\begin{itemize}
+	\item Riemannの理論
+	\begin{itemize}
+		\item First Lemma
+		%\item Second Lemma
+	\end{itemize}
+	\item Cantor-Lebesgue Lemma
+	\item Schwarz's Lemma
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Riemannの理論}
+$S \sim \sum c_n e^{inx}$を勝手な三角級数で係数が有界なものとする
+
+Riemannが考えたこと: Sの形式的二階積分を考える
+\end{frame}
+
+\begin{frame}{Riemannの理論}
+すなわち
+\[F_S(x) = \frac{c_0 x^2}{2} - {\sum_{n=-\infty}^{\infty}}' \frac{1}{n^2} c_n e^{inx} \]
+とおく．
+
+(ただし$\sum'$は$n \neq 0$を走る和)
+\end{frame}
+
+\begin{frame}{観察}
+$F_S$は連続 (Weirstrassの優級数定理より)
+\end{frame}
+
+\begin{frame}{Schwarz微分}
+関数$F$のSchwarz微分:
+\begin{align*}
+& D^2F(x) := \\
+& \ \ \lim_{h\to0} \frac{F(x+h) - 2F(x) + F(x-h)}{h^2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Riemann's First Lemma}
+$S \sim \sum c_n e^{inx}$を有界な係数を持つ三角級数とする．
+
+$x \in \R$，$s = \sum c_n e^{inx}$が存在するとする．
+
+このとき$D^2F_s(x) = s$
+\end{frame}
+
+%\begin{frame}{Riemann's Second Lemma}
+%$S \sim \sum c_n e^{inx}$を三角級数，$c_n \to 0 (|n| \to \infty)$とする．
+%このとき
+%\begin{align*}
+%\frac{F(x+h) - 2F(x) + F(x-h)}{h} \to 0 \\
+%(h \to 0)
+%\end{align*}
+%\end{frame}
+
+\begin{frame}{Cantor-Lebesgue Lemma}
+ある開区間上で
+\[\sum c_n e^{inx} = 0\]
+ならば，$c_n \to 0 (|n| \to \infty)$
+
+\vspace{1cm}
+{\footnotesize 後にLebesgueは「ある開区間上で」を「あるLebesgue測度正の集合上で」に弱めれられることを示した}
+\end{frame}
+
+\begin{frame}{Schwarz's Lemma}
+$F: (a, b) \to \C$が連続かつ$D^2F(x) = 0 (\forall x)$なら$F$は一次関数
+\end{frame}
+
+\begin{frame}{定理1の証明}
+主張:
+\begin{align*}
+& \sum c_n e^{inx} = 0 (\forall x \in \R) \\
+& \Rightarrow c_n = 0 (\forall n \in \Z)
+\end{align*}
+
+$S \sim \sum c_n e^{inx}$とおく．
+Cantor-Lebesgue Lemmaより$c_n \to 0 (|n| \to \infty)$．
+とくに$c_n$は有界
+\end{frame}
+
+\begin{frame}{定理1の証明}
+そこでRiemann's First Lemmaより$D_2F_S(x) = 0 (\forall x\in\R)$．
+よってSchwarz's Lemmaより$F_S$は一次関数．
+
+すなわち
+\[c_0 \frac{x^2}{2} - {\sum}' \frac{1}{n^2} c_n e^{inx} = ax + b.\]
+\end{frame}
+
+\begin{frame}{定理1の証明}
+\[c_0 \frac{x^2}{2} - {\sum}' \frac{1}{n^2} c_n e^{inx} = ax + b \tag{*}\]
+
+(*)に$x=\pi, -\pi$を代入すると$a = 0.$
+
+また，(*)に$x=0, 2\pi$を代入すると$c_0 = 0.$
+\end{frame}
+
+\begin{frame}{定理1の証明}
+
+{\small
+よって，
+\[{\sum}' \frac{1}{n^2} c_n e^{inx} = b.\]
+
+ゆえに$m \ne 0$なら
+\begin{align*}
+0 &= \int_0^{2\pi} b e^{-imx} dx \\
+&= \int_0^{2\pi} ({\sum}' \frac{1}{n^2} c_n e^{inx}) e^{-imx} dx \\
+&= {\sum}' \frac{1}{n^2} c_n \int_0^{2\pi} e^{i(n - m)x} dx \\
+&= 2\pi \frac{c_m}{m^2}. \ \ \text{よって} c_m = 0 \ \ \text{□}
+\end{align*}
+}
+\end{frame}
+
+\begin{frame}{定理2}
+\begin{thm}[2]
+有限個を除いたすべての$x \in [0, 2\pi)$で$\sum c_n e^{inx} = 0$ならば$c_n = 0 (\forall n \in \Z)$である
+\end{thm}
+\vspace{1cm}
+証明略
+\end{frame}
+
+%\begin{frame}{定理2の証明}
+%証明. $S \sim \sum c_n e^{inx}$とする．
+%
+%$x_0 = 0 \leq x_1 < x_2 < \dots < x_n < 2 \pi = x_{n+1}$が
+%\[x \neq x_i \Rightarrow \sum c_n e^{inx} = 0\]
+%をみたす点とする．
+%\end{frame}
+%
+%\begin{frame}{定理2の証明}
+%するとSchwarz's Lemmaより$F_S$は各区間$(x_i, x_{i+1})$で一次関数である．
+%
+%Riemann's Second Lemmaより$F_S$は導関数の不連続点を持たない．
+%
+%つまり$\forall x \in \R, F_S'(x+0) = F_S'(x-0)$が成り立つ．
+%
+%よって，$F_S$は$[0, 2\pi)$で一次関数である．
+%\end{frame}
+%
+%\begin{frame}{定理2の証明}
+%長さ$2 \pi$の任意の区間で同じことが成り立つので$F_S$は一次関数である．
+%
+%したがって，定理1の証明のように$c_n=0 (\forall n\in\Z)$ □
+%\end{frame}
+
+\begin{frame}{一意性集合の定義}
+$\mathbb{T} = \R/2\pi\Z (\fallingdotseq [0, 2\pi))$ とおく．
+
+$E \subset \mathbb{T}$が一意性集合 (set of uniqueness)とは
+\begin{align*}
+\sum c_n e^{inx} = 0 (\forall x \in \mathbb{T} \setminus E) \\
+\Rightarrow c_n = 0 (\forall n\in\Z)
+\end{align*}
+を満たすことと定める
+\end{frame}
+
+\begin{frame}{これまでの定理の言い換え}
+定理1を言い換えると，$\varnothing$は一意性集合
+
+定理2を言い換えると，$E \subset \mathbb{T}$が有限集合なら$E$は一意性集合
+\end{frame}
+
+\begin{frame}{さらなる一般化}
+閉集合$E$に対し，$E' = \{x \mid x\text{は}E\text{の集積点}\}$と書き，$E$の導集合という
+
+{\footnotesize ただし$x$が$E$の集積点であるとは，任意の$\epsilon > 0$に対してある$y \in E$があって，$x \ne y$かつ$d(x, y) < \epsilon$を満たすこと}
+
+定理2の言い換え:
+\begin{itemize}
+\item $E \subset \mathbb{T}$が閉集合で$E' = \varnothing$なら$E$は一意性集合
+\end{itemize}
+\end{frame}
+
+\begin{frame}{さらなる一般化}
+Cantorは次のことに気がついた
+\begin{itemize}
+\item $E$が閉集合で$E'' = \varnothing$なら$E$は一意性集合
+\end{itemize}
+もっと一般的に：
+\begin{itemize}
+\item $E$が閉集合であり，自然数$n$が存在し$E^{(n)} = \varnothing$なら$E$は一意性集合
+\end{itemize}
+ただし$E^{(0)} := E, E^{(n+1)} := (E^{(n)})'$
+\end{frame}
+
+\begin{frame}{導集合の例}
+\[ E = \{0\} \cup \{1/n \mid n = 1, 2, 3, \dots \} \subset \R \]
+なら導集合は
+\[ E' = \{0\} \]
+であり，もう一度導集合をとると
+\[ E'' = \emptyset \]
+\end{frame}
+
+
+
+\begin{frame}{さらなる一般化}
+一般に次のことが言えたら，「任意の可算閉集合が一意性集合」という定理が得られたことになる:
+
+\begin{itemize}
+\item $E$が可算閉集合ならば，自然数$n$が存在し$E^{(n)} = \varnothing$
+\end{itemize}
+
+しかしこれは言えない！
+\end{frame}
+
+\begin{frame}{さらなる一般化}
+しかし番号を自然数で終わらせるのではなく，導集合を取る操作をもっと続ければ可算閉集合$E$に対してある“番号”$\alpha$が存在して$E^{(\alpha)} = \varnothing$となるのではないかと考えた
+\end{frame}
+
+\begin{frame}{さらなる一般化}
+つまり，
+\begin{align*}
+E^{(0)} &:= E \\
+E^{(n+1)} &:= (E^{(n)})'\ (n\in\N) \\
+E^{(\omega)} &:= \bigcap_{n\in\N} E^{(n)} \\
+E^{(\omega+n+1)} &:= (E^{(\omega+n)})'\ (n\in\N) \\
+E^{(\omega 2)} &:= \bigcap_{n\in\N} E^{(\omega + n)} \\
+\vdots
+\end{align*}
+\end{frame}
+
+\begin{frame}{さらなる一般化}
+同様に$E^{(\omega 2)}, E^{(\omega 3)}, E^{(\omega 4)}, \dots$を定義していき，
+\[E^{(\omega^2)} = E^{(\omega \omega)} = \bigcap_{n\in\N} E^{(\omega n)}\]
+さらに$E^{(\omega^2)}, E^{(\omega^3)}, E^{(\omega^4)}, \dots$を定義していき，
+\[E^{(\omega^\omega)} = \bigcap_{n\in\N} E^{(\omega^n)}\]
+と定義する．以下さらに続く
+\end{frame}
+
+\begin{frame}{さらなる一般化}
+この考察がCantorを順序数の発見へと導いた
+\end{frame}
+
+\begin{frame}{準備：順序数}
+\begin{itemize}
+\item 整列集合
+\end{itemize}
+
+順序集合$(X, \leq)$は条件「任意の空でない部分集合が最小元を持つ」を満たすとき，整列集合という
+\end{frame}
+
+\begin{frame}{準備：順序数}
+例
+\begin{itemize}
+\item 任意の有限全順序集合は整列集合である．$n$を固定したとき要素数$n$の整列集合は互いに同型
+\item $\N$は整列集合
+\end{itemize}
+\end{frame}
+
+\begin{frame}{準備：順序数}
+\begin{itemize}
+\item 整列集合全体を順序同型という同値関係で割った同値類を順序数という
+\item 順序数に対して「次の順序数」，和，積，ベキ，大小関係が定まる
+\end{itemize}
+\end{frame}
+
+\begin{frame}{準備：順序数}
+\begin{itemize}
+\item 順序数$\alpha$に対して
+\[\operatorname{ON}(\alpha) = \{\beta: \text{順序数} \mid \beta < \alpha \}\]
+とおくと$\operatorname{ON}(\alpha)$は整列集合
+\item 順序数$\alpha$は，$\operatorname{ON}(\alpha)$が集合として可算のとき，可算順序数という
+\end{itemize}
+\end{frame}
+
+\begin{frame}{準備：順序数}
+\begin{itemize}
+\item 任意の整列集合$X$に対し順序数$\alpha$が一意に存在し，$X \simeq \operatorname{ON}(\alpha)$
+\item 順序数$\alpha$について，ある順序数$\beta$があって$\alpha = \beta + 1$と書けるとき，$\alpha$を後続順序数といい，そうでないとき極限順序数という
+\end{itemize}
+\end{frame}
+
+\begin{frame}{準備：順序数 (超限帰納法)}
+順序数$\alpha$に関する条件$P(\alpha)$があるとする．
+以下を仮定する
+\begin{itemize}
+\item $\alpha$が順序数で任意の$\beta < \alpha$について$P(\beta)$が成り立つなら$P(\alpha)$が成り立つ
+\end{itemize}
+このとき任意の順序数$\alpha$について$P(\alpha)$が成り立つ
+\end{frame}
+
+\begin{frame}{Cantor-Bendixon解析}
+$E \subset \mathbb{T}$を閉集合とし，
+\[E' = \{x \in E \mid \text{$x$は$E$の集積点} \}\]
+と定める．
+
+各順序数$\alpha$について$E^{(\alpha)}$を帰納的に定める:
+\begin{align*}
+E^{(0)} &= E \\
+E^{(\alpha + 1)} &= (E^{(\alpha)})' \\
+E^{(\lambda)} &= \bigcap_{\alpha < \lambda} E^{(\alpha)}, \lambda: \text{極限順序数} \\
+\end{align*}
+\end{frame}
+
+\begin{frame}{Cantor-Bendixon解析}
+$E^{(\alpha)}$は閉集合の減少列になっている
+
+\begin{lem}
+$\mathbb{T}$の閉集合の減少列$F_\alpha (\alpha:\text{順序数})$があったら，ある可算順序数$\alpha_0$があって$F_{\alpha_0} = F_{\alpha_0 + 1}$
+\end{lem}
+
+\vspace{0.5cm}
+証明は$\mathbb{T}$の第二可算性より
+\end{frame}
+
+%\begin{frame}{補題の証明}
+%空間が$\mathbb{T}$ではなく$\R^2$の場合を示す．
+%\[\mathcal{B} = \{B(x, r) \mid x \in \Q^2, r \in \Q_{>0} \}\]
+%とおく \small{(ただし$B(x, r)$は中心$x$，半径$r$のボールの内部)}．すると
+%\begin{itemize}
+%\item $|\mathcal{B}| = \aleph_0$
+%\item $\forall x \in \R^2, \forall O\subset \R^2\ \text{開集合}, x \in O \Rightarrow \exists B \in \mathcal{B}, x \in B \subset O$
+%\end{itemize}
+%(i.e. $\mathcal{B}$は可算基底)
+%\end{frame}
+
+%\begin{frame}{補題の証明}
+%すべての可算順序数$\alpha$について$F_\alpha \subsetneq F_{\alpha+ 1}$であるとする．
+%
+%各$\alpha$に対し$x_\alpha \in F_{\alpha+1} \setminus F_\alpha$をとる．
+%
+%$x_\alpha \in B_\alpha \subset \R^2 \setminus F_\alpha$となる$B_\alpha \in \mathcal{B}$をとる．
+%
+%すると
+%\[\operatorname{ON}(\omega_1) \ni \alpha \mapsto B_\alpha \in \mathcal{B} \]
+%は単射．これは$\operatorname{ON}(\omega_1)$が非可算で$\mathcal{B}$が可算なことに矛盾．
+%\end{frame}
+%
+%
+%\begin{frame}{補題の証明}
+%同様の証明は空間が“第二可算公理”を満たす場合に実行可能．よって補題は$\mathbb{T}$の場合でも正しい．
+%\end{frame}
+
+
+\begin{frame}{Cantor-Bendixon解析}
+補題より，$E \subset \mathbb{T}$に対して，$E^{(\alpha_0)} = E^{(\alpha_0+1)}$，したがって$E^{(\alpha_0)} = E^{(\beta)} (\forall \beta \geq \alpha_0)$となる最小の可算順序数$\alpha_0$が存在する．
+
+それを$E$のCantor-Bendixon階数という．
+
+$E^{(\alpha_0)} = E^{(\infty)}$と書き，$E$の完全核という
+\end{frame}
+
+\begin{frame}{Cantor-Bendixonの定理}
+$E$を閉集合とする．すると$E \setminus E^{(\infty)}$は可算である．
+
+とくに，
+\[E\text{が可算} \iff E^{(\infty)} = \varnothing\]
+\end{frame}
+
+\begin{frame}{Cantor-Bendixonの定理の証明}
+一回の操作で取り除かれる点の個数は可算 (証明略)であり，可算集合の可算和が可算であることより，$E \setminus E^{(\infty)}$は可算．
+
+\vspace{0.5cm}
+定理の主張の後半は，空でない孤立点のない閉集合は必ず非可算であること (証明略)より □
+\end{frame}
+
+\begin{frame}{定理3}
+\begin{itemize}
+\item 可算閉集合は一意性集合
+\end{itemize}
+
+証明の方針だけ示す．
+
+$E$を可算閉集合，$S \sim \sum c_n e^{inx}$が$E$以外の点で$0$に収束するとする．
+
+閉集合$F$に対し，$F$の補集合を構成する開区間を$F$の隣接開区間と呼ぶ．
+\end{frame}
+
+\begin{frame}{定理3}
+$\alpha$に関する超限帰納法により，$E^{(\alpha)}$の各隣接開区間で$F_S$が一次関数であることを示す．
+
+$E^{\alpha_0} = \varnothing$となる$\alpha_0$があり，$\varnothing$の隣接開区間は$(0, 2\pi)$なので定理1の証明と同様に証明が終わる □
+\end{frame}
+
+\begin{frame}{定理3}
+したがって次の定理が得られた
+\begin{itemize}
+\item 可算閉集合は一意性集合
+\end{itemize}
+
+すなわち$E \subset \mathbb{T}$が可算閉集合のとき
+\begin{align*}
+\sum c_n e^{inx} = 0 (\forall x \in \mathbb{T} \setminus E) \\
+\Rightarrow c_n = 0 (\forall n\in\Z)
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Cantor以後の発展}
+\begin{itemize}
+\item Bernstein (1908)とW.H.Young (1909)は任意の可算集合は一意性集合であることを示した
+\item 一意性集合はLebesgue可測ならLebesgue測度$0$だと分かった
+\item つまり，
+\begin{align*}&\text{(可算集合全体)}\\
+&\subset \text{(可測な一意性集合全体)} \\
+&\subset \text{(Lebesgue測度$0$の集合全体)}
+\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cantor以後の発展}
+	\begin{itemize}
+		\item さらにこの包含関係はproperなことも分かった．つまり，
+		\begin{align*}&\text{(可算集合全体)}\\
+		&\subsetneq \text{(可測な一意性集合全体)} \\
+		&\subsetneq \text{(Lebesgue測度$0$の集合全体)}
+		\end{align*}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Cantor以後の発展}
+\begin{itemize}
+\item 一意性集合であって非可算な集合としてCantor集合がある．これを示したのはRajchmanである (1921-23)
+
+\item Lebesgue測度$0$であって一意性集合でない集合の存在を示したのはMenshovである (1916)
+
+\item さらにこれに関して次の驚くべき事実が証明された
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cantor集合の一般化}
+Cantor集合は閉区間から初めて左右の比率1/3以外を取り除くことを繰り返して残る集合
+
+比率を$1/3$ではなく$\xi (0 < \xi < 1/2)$にしたものを$E_\xi$と書く
+
+
+\begin{center}
+\includegraphics[height=3cm]{cantorset-cropped.pdf}
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}{Salem-Zygmundの定理}
+$E_{\xi}$が一意性集合である$\xi$の条件は？
+
+\vspace{0.5cm}
+素朴な予想:
+$\xi$が小さいほど，$E_{\xi}$は細い集合になっているので，実数$c$により
+\[\{\xi \in (0, \frac{1}{2}) \mid E_\xi \text{は一意性集合} \} = (0, c)\]
+みたいな形になってそう？
+\end{frame}
+
+\begin{frame}{Salem-Zygmundの定理}
+実は次が成り立つ (Salem-Zygmund, 1950)
+\vspace{0.5cm}
+
+$0 < \xi < 1/2$に対し，
+\[E_{\xi}\text{が一意性集合} \iff 1/\xi\text{がPisot数}\]
+\end{frame}
+
+\begin{frame}{Salem-Zygmundの定理}
+実数$\theta$がPisot数であるとは次を満たすこと
+\begin{itemize}
+\item $\theta > 1$
+\item $\theta$は代数的整数
+\item $\theta$の共役は$\theta$以外すべて絶対値$1$未満
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Salem-Zygmundの定理}
+ここに$\theta$が代数的整数とはある既約で最高次係数$1$の整数係数多項式
+\[f(x) = x^n + a_1 x^{n-1} + \dots + a_n\]
+があって$f(\theta) = 0$となること．
+
+$\theta$の共役とはこの$f$の根のこと
+\end{frame}
+
+\begin{frame}{Salem-Zygmundの定理}
+\begin{itemize}
+\item  正の整数$n\ge2$に対して$E_{1/n}$はすべて一意性集合
+
+\item  有理数$p/q$は整数でないとき$E_{q/p}$は一意性集合でない．
+
+例: $E_{2/5}$は一意性集合でない
+
+\item  $E_{2/(1+\sqrt{5})}$は一意性集合
+
+\item  円周率$\pi$は超越数なので$E_{1/\pi}$は一意性集合でない
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{まとめ}
+\begin{itemize}
+\item 三角級数の一意性について，例外として認められる点の集合を一意性集合といった
+\item 一意性集合の十分条件として空集合，有限集合，可算閉集合があることを順に挙げて証明した
+\end{itemize}
+\end{frame}
+
+\begin{frame}{まとめ}
+\begin{itemize}
+\item とくに可算閉集合についての証明では順序数を導入しCantor-Bendixonの定理を述べた
+\item 最後にCantor集合の一般化が一意性集合となる必要十分条件を述べる驚くべき定理を紹介した
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{参考文献}
+\begin{itemize}
+\item Alexander S. Kechris “Set Theory and Uniqueness for Trigonometric Series”
+\item Alexander S. Kechris and Alain Louveau “Descriptive set theory and the structure of sets of uniqueness” Cambridge University Press, 1987
+\end{itemize}
+\end{frame}
+
+\begin{frame}{おまけ: Salem-Zygmundの定理の必要性の証明の概略}
+ここからSalem-Zygmundの定理の必要性，すなわち次の主張の証明の概略を述べよう
+
+\begin{itemize}
+\item $\theta=1/\xi$がPisot数でないならば$E_\xi$は一意性集合でない
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Pisot数の性質}
+Pisot数$\theta$は次の性質を持つ:
+\[\lim_{n\to\infty} \{\theta^n\} = 0\]
+ここに$\{x\}$は実数$x$の小数部分．
+
+\vspace{0.5cm}
+{\small
+これは$\theta^n$のトレース
+\[ (\theta^{(0)})^n + (\theta^{(1)})^n + \dots + (\theta^{(k-1)})^n\]
+が整数であり，また$(\theta^{(0)})^n$以外の項が全部$0$へ行くからである
+}
+\end{frame}
+
+\begin{frame}{Pisot数の性質}
+これを強めた次のことが成り立つ
+\begin{align*}
+\theta: \text{Pisot数}, \gamma: \Q(\theta)\text{上の整数} \\
+ \Rightarrow \sum_{n=0}^\infty \{\gamma \theta^n\}<\infty
+\end{align*}
+\end{frame}
+
+\begin{frame}{Pisot数の性質}
+また，逆に次が成り立つ
+\begin{align*}
+& \gamma, \theta \in \R, \gamma \ne 0, \theta> 1 \text{かつ} \\
+& \sum_{n=0}^\infty \{\gamma \theta^n\}^2<\infty \\
+& \Rightarrow  \theta: \text{Pisot数}, \gamma \in \Q(\theta) \tag{$\ast$}
+\end{align*}
+($\ast$)が証明の鍵になる！
+\end{frame}
+
+\begin{frame}{必要性の証明}
+$E$が一意性集合でないことを示すためには
+\begin{align*}
+& \exists \{c_n\} \subset \C, \\
+& [[\forall x \in \mathbb{T} \setminus E, \sum c_n e^{inx} = 0] \\
+& \land [\exists n \in \Z, c_n \ne 0]]
+\end{align*}
+を示さなければならない
+
+このような$\{c_n\}$をどう構成するか？
+\end{frame}
+
+\begin{frame}{必要性の証明}
+実は次が知られている
+
+\vspace{0.5cm}
+$E \subset \mathbb{T}, E \ne \mathbb{T}$を閉集合で，$\mu$を$\mathbb{T}$上の確率測度で$\mu(E) = 1$とする．このとき次は同値
+\begin{enumerate}
+\item $\hat{\mu}(n) \to 0$
+\item $\sum \hat{\mu}(n) e^{inx} = 0\ (\forall x \in \mathbb{T} \setminus E)$
+\end{enumerate}
+ここで$\hat{\mu}(n) := \int e^{-int} d\mu(t)$
+\end{frame}
+
+\begin{frame}{必要性の証明}
+よって$\mu(E_\xi) = 1, \hat{\mu}(n) \to 0$を満たす確率測度$\mu$を見つければよい．
+	
+$2^{\N}$上のコイントス測度$\sigma$をとり，$F: 2^{\N} \to E_\xi$を自然に定まる同相写像としたとき
+\[\mu(A) = \sigma(F^{-1}(A \cap E_\xi))\]
+と定める．
+
+このとき$\hat{\mu}(n) \to 0$になることが($\ast$)より確かめられる
+\end{frame}
+
+\begin{frame}{おわり}
+\begin{center}おわり\end{center}
+\end{frame}
+
+
+
+\end{document}
