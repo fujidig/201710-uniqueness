@@ -238,7 +238,7 @@ Cantor-Lebesgue Lemmaより$c_n \to 0 (|n| \to \infty)$．
 \end{frame}
 
 \begin{frame}{定理1の証明}
-そこでRiemann's First Lemmaより$D_2F_S(x) = 0 (\forall x\in\R)$．
+そこでRiemann's First Lemmaより$D^2 F_S(x) = 0 (\forall x\in\R)$．
 よってSchwarz's Lemmaより$F_S$は一次関数．
 
 すなわち
@@ -491,10 +491,11 @@ $\mathbb{T}$の閉集合の減少列$F_\alpha (\alpha:\text{順序数})$があ�
 
 
 \begin{frame}{Cantor-Bendixon解析}
-補題より，$E \subset \mathbb{T}$に対して，$E^{(\alpha_0)} = E^{(\alpha_0+1)}$，したがって$E^{(\alpha_0)} = E^{(\beta)} (\forall \beta \geq \alpha_0)$となる最小の可算順序数$\alpha_0$が存在する．
+補題より，$E \subset \mathbb{T}$に対して，$E^{(\alpha_0)} = E^{(\alpha_0+1)}$，したがって$E^{(\alpha_0)} = E^{(\beta)} (\forall \beta \geq \alpha_0)$となる最小の可算順序数$\alpha_0$が存在する
 
-それを$E$のCantor-Bendixon階数という．
+それを$E$のCantor-Bendixon階数という
 
+\vspace{0.5cm}
 $E^{(\alpha_0)} = E^{(\infty)}$と書き，$E$の完全核という
 \end{frame}
 
@@ -720,7 +721,7 @@ $E$が一意性集合でないことを示すためには
 実は次が知られている
 
 \vspace{0.5cm}
-$E \subset \mathbb{T}, E \ne \mathbb{T}$を閉集合で，$\mu$を$\mathbb{T}$上の確率測度で$\mu(E) = 1$とする．このとき次は同値
+$E \subset \mathbb{T}, E \ne \mathbb{T}$を閉集合で，$\mu$を$\mathbb{T}$上の確率Borel測度で$\mu(E) = 1$とする．このとき次は同値
 \begin{enumerate}
 \item $\hat{\mu}(n) \to 0$
 \item $\sum \hat{\mu}(n) e^{inx} = 0\ (\forall x \in \mathbb{T} \setminus E)$
